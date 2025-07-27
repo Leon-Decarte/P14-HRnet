@@ -1,4 +1,8 @@
 import { useState } from "react"
+import { states } from "../data/states"
+import Modal from "../components/Modal"
+
+
 
 function CreateEmployee() {
     const [formData, setFormData] = useState({
@@ -12,6 +16,7 @@ function CreateEmployee() {
         zipCode: "",
         department: "Sales"
     })
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -21,18 +26,10 @@ function CreateEmployee() {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        // récupérer les employés existants
         const existingEmployees = JSON.parse(localStorage.getItem("employees")) || []
-
-        // ajouter le nouvel employé
         const updatedEmployees = [...existingEmployees, formData]
-
-        // sauvegarder dans localStorage
         localStorage.setItem("employees", JSON.stringify(updatedEmployees))
 
-        console.log("✅ Employee saved:", formData)
-
-        // vider le formulaire
         setFormData({
             firstName: "",
             lastName: "",
@@ -45,8 +42,9 @@ function CreateEmployee() {
             department: "Sales"
         })
 
-        // (on ajoutera une modale ici ensuite)
+        setIsModalOpen(true) // ← Ouvrir la modale
     }
+
 
 
     return (
@@ -97,7 +95,12 @@ function CreateEmployee() {
 
                 <button type="submit">Save</button>
             </form>
+            {/* 🔽 La modale ici, après le formulaire */}
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <p>✅ Employee Created!</p>
+            </Modal>
         </div>
+
     )
 }
 
