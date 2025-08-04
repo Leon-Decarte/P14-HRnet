@@ -1,16 +1,14 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import CreateEmployee from './pages/CreateEmployee'
-import EmployeeList from './pages/EmployeeList'
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
+import CreateEmployee from "./pages/CreateEmployee"
+import EmployeeList from "./pages/EmployeeList"
+import Navbar from "./components/Navbar"
+
 
 function App() {
   return (
     <Router>
-      <nav>
-        <ul>
-          <li><Link to="/">Create Employee</Link></li>
-          <li><Link to="/employees">Employee List</Link></li>
-        </ul>
-      </nav>
+      
+      <Navbar />
 
       <Routes>
         <Route path="/" element={<CreateEmployee />} />

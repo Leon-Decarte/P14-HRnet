@@ -1,21 +1,37 @@
+// 📄 Fichier : Front/src/pages/CreateEmployee.jsx
 import { useState } from "react"
-import Modal from "../components/Modal"
+import Select from "react-select"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
-import { states } from "../data/states"
+import states from "../data/states" 
+import Modal from "modal-leon-lib" 
+import "./CreateEmployee.css" 
 
 
-const CreateEmployee = () => {
+const departmentOptions = [
+    { value: "Sales", label: "Sales" },
+    { value: "Marketing", label: "Marketing" },
+    { value: "Engineering", label: "Engineering" },
+    { value: "Human Resources", label: "Human Resources" },
+    { value: "Legal", label: "Legal" },
+]
+
+const stateOptions = states.map((s) => ({
+    value: s.abbreviation,
+    label: s.name,
+}))
+
+export default function CreateEmployee() {
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
-        dateOfBirth: null,
-        startDate: null,
+        dateOfBirth: "",
+        startDate: "",
+        department: "",
         street: "",
         city: "",
         state: "",
         zipCode: "",
-        department: "Sales"
     })
 
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -27,84 +43,75 @@ const CreateEmployee = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
-        // Formatage des dates
-        const formattedData = {
-            ...formData,
-            dateOfBirth: formData.dateOfBirth?.toLocaleDateString(),
-            startDate: formData.startDate?.toLocaleDateString()
-        }
-
-        const existingEmployees = JSON.parse(localStorage.getItem("employees")) || []
-        const updatedEmployees = [...existingEmployees, formattedData]
-        localStorage.setItem("employees", JSON.stringify(updatedEmployees))
-
-        setFormData({
-            firstName: "",
-            lastName: "",
-            dateOfBirth: null,
-            startDate: null,
-            street: "",
-            city: "",
-            state: "",
-            zipCode: "",
-            department: "Sales"
-        })
-
+        const employees = JSON.parse(localStorage.getItem("employees")) || []
+        const updated = [...employees, formData]
+        localStorage.setItem("employees", JSON.stringify(updated))
         setIsModalOpen(true)
     }
 
     return (
-        <div className="container">
-            <h2>Create Employee</h2>
+        <div className="form-container">
+            <h1>Create Employee</h1>
             <form onSubmit={handleSubmit}>
-                <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} />
-                <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} />
+                <label>First Name</label>
+                <input name="firstName" onChange={handleChange} required />
+
+                <label>Last Name</label>
+                <input name="lastName" onChange={handleChange} required />
 
                 <label>Date of Birth</label>
                 <DatePicker
                     selected={formData.dateOfBirth}
-                    onChange={(date) => setFormData((prev) => ({ ...prev, dateOfBirth: date }))}
+                    onChange={(date) =>
+                        setFormData((prev) => ({ ...prev, dateOfBirth: date }))
+                    }
+                    dateFormat="MM/dd/yyyy"
+                    wrapperClassName="custom-datepicker"
+                    popperPlacement="bottom-start"
                 />
 
                 <label>Start Date</label>
                 <DatePicker
                     selected={formData.startDate}
-                    onChange={(date) => setFormData((prev) => ({ ...prev, startDate: date }))}
+                    onChange={(date) =>
+                        setFormData((prev) => ({ ...prev, startDate: date }))
+                    }
+                    dateFormat="MM/dd/yyyy"
+                    wrapperClassName="custom-datepicker"
+                    popperPlacement="bottom-start"
                 />
 
-                <input type="text" name="street" placeholder="Street" value={formData.street} onChange={handleChange} />
-                <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} />
+                <label>Street</label>
+                <input name="street" onChange={handleChange} />
+
+                <label>City</label>
+                <input name="city" onChange={handleChange} />
+
                 <label>State</label>
-                <select
-                    name="state"
-                    value={formData.state}
-                    onChange={handleChange}
-                >
-                    <option value="">-- Select a state --</option>
-                    {states.map((state) => (
-                        <option key={state.abbreviation} value={state.abbreviation}>
-                            {state.name}
-                        </option>
-                    ))}
-                </select>
-                <input type="text" name="zipCode" placeholder="Zip Code" value={formData.zipCode} onChange={handleChange} />
-                <select name="department" value={formData.department} onChange={handleChange}>
-                    <option>Sales</option>
-                    <option>Marketing</option>
-                    <option>Engineering</option>
-                    <option>Human Resources</option>
-                    <option>Legal</option>
-                </select>
+                <Select
+                    options={stateOptions}
+                    onChange={(selected) =>
+                        setFormData((prev) => ({ ...prev, state: selected.value }))
+                    }
+                />
+
+                <label>Zip Code</label>
+                <input name="zipCode" type="number" onChange={handleChange} />
+
+                <label>Department</label>
+                <Select
+                    options={departmentOptions}
+                    onChange={(selected) =>
+                        setFormData((prev) => ({ ...prev, department: selected.value }))
+                    }
+                />
 
                 <button type="submit">Save</button>
             </form>
 
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <p>✅ Employee Created!</p>
+                <p> Employee Created!</p>
             </Modal>
         </div>
     )
 }
-
-export default CreateEmployee
