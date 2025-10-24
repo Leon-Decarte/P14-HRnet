@@ -1,11 +1,13 @@
-// 📄 Fichier : Front/src/pages/CreateEmployee.jsx
 import { useState } from "react"
 import Select from "react-select"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import states from "../data/states" 
 import Modal from "modal-leon-lib" 
+import "modal-leon-lib/dist/index.css"
+
 import "./CreateEmployee.css" 
+//import Modal from "../components/Modal"
 
 
 const departmentOptions = [
@@ -109,7 +111,7 @@ export default function CreateEmployee() {
                 <button type="submit">Save</button>
             </form>
 
-            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+            <Modal isOpen={isModalOpen}  closeText = "x" onClose={() => setIsModalOpen(false)}>
                 <p> Employee Created!</p>
             </Modal>
         </div>

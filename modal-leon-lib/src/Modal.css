@@ -1,0 +1,67 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    width: 400px;
+    max-width: 90%;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    animation: pop-in 0.2s ease;
+}
+
+.modal-body {
+    text-align: center;
+    font-size: 1rem;
+    color: #333;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background-color: #22c55e;
+    /* bouton vert */
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.modal-close:hover {
+    background-color: #16a34a;
+}
+
+@keyframes pop-in {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-overlay {
+    animation: fadeIn var(--fade-duration, 200ms) ease;
+}
+
+.modal-content {
+    animation: popIn var(--fade-duration, 200ms) ease;
+}
