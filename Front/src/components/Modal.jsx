@@ -12,7 +12,6 @@ export default function Modal({
     closeText = "O",
     className = ""
 }) {
-    // Fermer avec la touche Échap
     useEffect(() => {
         if (!isOpen || !escapeClose) return
         const handleKey = (e) => e.key === "Escape" && onClose()

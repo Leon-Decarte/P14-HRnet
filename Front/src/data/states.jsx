@@ -1,5 +1,3 @@
-// src/data/states.js
-
 
 const states = [
     { name: "Alabama", abbreviation: "AL" },
@@ -9,7 +7,6 @@ const states = [
     { name: "Florida", abbreviation: "FL" },
     { name: "New York", abbreviation: "NY" },
     { name: "Texas", abbreviation: "TX" },
-    // Ajoute plus d'états ici si tu veux...
 ]
 
 export default states

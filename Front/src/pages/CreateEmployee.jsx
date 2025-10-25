@@ -7,7 +7,6 @@ import Modal from "modal-leon-lib"
 import "modal-leon-lib/dist/index.css"
 
 import "./CreateEmployee.css" 
-//import Modal from "../components/Modal"
 
 
 const departmentOptions = [
