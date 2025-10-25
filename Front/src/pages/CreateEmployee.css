@@ -1,11 +1,10 @@
-
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
 }
+
 /* Conteneur général */
 .form-container {
     max-width: 600px;
@@ -29,17 +28,23 @@ form label {
     margin-top: 1rem;
     font-weight: bold;
     color: #444;
+    margin-bottom: 0.3rem;
+
 }
 
 form input,
 form .custom-datepicker input {
     width: 100%;
     padding: 0.6rem;
-    margin-top: 0.3rem;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 1rem;
     box-sizing: border-box;
+}
+
+
+.react-datepicker button {
+    margin: 0;
 }
 
 /* Bouton Save */
@@ -63,6 +68,6 @@ form button:hover {
 
 /* Target the button inside your Modal and make it green */
 .modal-overlay button {
-  background-color: #2e8b26 !important;  /* Green */
-  color: white;
+    background-color: #2e8b26 !important;
+    color: white;
 }

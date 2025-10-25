@@ -3,19 +3,18 @@ import Select from "react-select"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import states from "../data/states" 
+import departments from "../data/departments" 
+
 import Modal from "modal-leon-lib" 
 import "modal-leon-lib/dist/index.css"
 
 import "./CreateEmployee.css" 
 
 
-const departmentOptions = [
-    { value: "Sales", label: "Sales" },
-    { value: "Marketing", label: "Marketing" },
-    { value: "Engineering", label: "Engineering" },
-    { value: "Human Resources", label: "Human Resources" },
-    { value: "Legal", label: "Legal" },
-]
+const departmentOptions = departments.map((dept) => ({
+    value: dept.value,
+    label: dept.label,
+}))
 
 const stateOptions = states.map((s) => ({
     value: s.abbreviation,
@@ -37,6 +36,7 @@ export default function CreateEmployee() {
 
     const [isModalOpen, setIsModalOpen] = useState(false)
 
+    // Gère les changements dans les champs de formulaire
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormData((prev) => ({ ...prev, [name]: value }))
@@ -44,8 +44,11 @@ export default function CreateEmployee() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        // Récupère les employés existants depuis le localStorage
         const employees = JSON.parse(localStorage.getItem("employees")) || []
+        // Met à jour la liste des employés
         const updated = [...employees, formData]
+        // Sauvegarde dans le localStorage
         localStorage.setItem("employees", JSON.stringify(updated))
         setIsModalOpen(true)
     }
